@@ -7,6 +7,16 @@ spark = SparkSession.builder.appName("Sparkminiproject").getOrCreate()
 import re
 import pandas as pd
 from pyspark.sql.functions import regexp_extract
+#
+# if 'sc' not in locals():
+#     import pyspark
+#     from pyspark.context import SparkContext
+#     from pyspark.sql.context import SQLContext
+#     from pyspark.sql.session import SparkSession
+#
+#     sc = SparkContext()
+#     sqlContext = SQLContext(sc)
+#     spark = SparkSession(sc)
 
 m = re.finditer(r'.*?(spark).*?', "I'm searching for a spark in PySpark", re.I)
 for match in m:
@@ -450,3 +460,32 @@ print(hourly_avg_errors_sorted_df)
 hourly_avg_errors_sorted_df.plot(x='hour', y='count', kind='bar')
 plt.show()
 
+# Your Turn: Q13: Check data integrity before loading
+# # TODO: Review the data frame you will like to store and load. Replace <FILL IN> with appropriate code
+print(hourly_avg_errors_sorted_df.count())
+print(hourly_avg_errors_sorted_df.columns)
+
+# To save your dataframe in CSV file format,
+# you call simply replace the name of the dataframe and assign file name in the following:
+
+# Your Turn: Q14: Save your data as a CSV file
+# TODO: Review the data frame you will like to store and load. Replace <FILL IN> with appropriate code
+
+hourly_avg_errors_sorted_df.write.save("sorted hourly_average_error", format = 'csv')
+# TODO: Check to see if you have stored and loaded the CSV file successfully by checking the first 5 rows. Replace <FILL IN> with appropriate code
+
+SparkSession\
+	.sparkContext\
+	.textFile("sorted hourly_average_error")\
+	.take(5)
+
+# Your Turn: Q15: Save your data as a JSON file
+# TODO: Review the data frame you will like to store and load. Replace <FILL IN> with appropriate code
+
+hourly_avg_errors_sorted_df.write.save("sorted hourly_average_error", format = 'json')
+# TODO: Similarly, check the first 5 rows in the JSON file. Replace <FILL IN> with appropriate code
+
+SparkSession\
+	.sparkContext\
+	.textFile("hourly_avg_errors_sorted_df")\
+	.take(5)
