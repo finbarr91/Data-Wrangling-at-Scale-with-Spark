@@ -1,5 +1,6 @@
 import findspark
 findspark.init()
+import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as func
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType
@@ -462,8 +463,8 @@ plt.show()
 
 # Your Turn: Q13: Check data integrity before loading
 # # TODO: Review the data frame you will like to store and load. Replace <FILL IN> with appropriate code
-print(hourly_avg_errors_sorted_df.count())
-print(hourly_avg_errors_sorted_df.columns)
+print(base_df.count())
+print(base_df.columns)
 
 # To save your dataframe in CSV file format,
 # you call simply replace the name of the dataframe and assign file name in the following:
@@ -471,21 +472,21 @@ print(hourly_avg_errors_sorted_df.columns)
 # Your Turn: Q14: Save your data as a CSV file
 # TODO: Review the data frame you will like to store and load. Replace <FILL IN> with appropriate code
 
-hourly_avg_errors_sorted_df.write.save("sorted hourly_average_error", format = 'csv')
-# TODO: Check to see if you have stored and loaded the CSV file successfully by checking the first 5 rows. Replace <FILL IN> with appropriate code
+# base_df.write.save("base_dataframe", format = 'csv')
+# # TODO: Check to see if you have stored and loaded the CSV file successfully by checking the first 5 rows. Replace <FILL IN> with appropriate code
 
-SparkSession\
-	.sparkContext\
-	.textFile("sorted hourly_average_error")\
-	.take(5)
+# pyspark\
+# 	.SparkContext\
+# 	.textFile(r"C:\Users\chukw\PycharmProjects\Data-Wrangling-at-Scale-with-Spark\base_dataframe")\
+# 	.take(5)
 
 # Your Turn: Q15: Save your data as a JSON file
 # TODO: Review the data frame you will like to store and load. Replace <FILL IN> with appropriate code
 
-hourly_avg_errors_sorted_df.write.save("sorted hourly_average_error", format = 'json')
+base_df.write.save("base_dataframe_json", format = 'json')
 # TODO: Similarly, check the first 5 rows in the JSON file. Replace <FILL IN> with appropriate code
 
-SparkSession\
-	.sparkContext\
-	.textFile("hourly_avg_errors_sorted_df")\
+pyspark\
+	.SparkContext\
+	.textFile(r"C:\Users\chukw\PycharmProjects\Data-Wrangling-at-Scale-with-Spark\base_dataframe_json" )\
 	.take(5)
